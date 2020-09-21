@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Beyond the Blue Dot {% endblock %}</h1>
+    {% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+    {% endfor %}
+{% endblock %}
