@@ -6,4 +6,39 @@
             {{titles[loop.index]}}
             {{ table|safe }}
     {% endfor %}
+
+    <div id="map" style="width: 705px; height: 375px"></div>
+
+    <script type="text/javascript">
+        // Create variable to hold map element, give initial settings to map
+        var map = L.map('map',{ center: [42.362432, -71.086086], zoom: 14});
+        // var map = L.map('map').setView([40.712, -74.006], 11);
+
+        // {s}, {z}, {x} and {y} are placeholders for map tiles
+        // {x} and {y} are the x/y of where you are on the map
+        // {z} is the zoom level
+        // {s} is the subdomain of cartodb
+        var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+        });
+        
+        // Now add the layer onto the map
+        map.addLayer(layer);
+
+        
+    // Find Latitude and Longitude of a Mouse Click
+        // Create an Empty Popup
+        var popup = L.popup();
+        // Write function to set Properties of the Popup
+        function onMapClick(e) {
+            
+            popup
+                .setLatLng(e.latlng)
+                .setContent("You clicked the map at " + e.latlng.toString())
+                .openOn(map);
+        }
+        // Listen for a click event on the Map element
+        map.on('click', onMapClick);
+    </script>
+
 {% endblock %}
